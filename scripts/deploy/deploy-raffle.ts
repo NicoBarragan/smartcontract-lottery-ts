@@ -1,8 +1,8 @@
 import { ethers } from "hardhat";
 import "@nomiclabs/hardhat-ethers";
 import { BigNumber } from "ethers";
-import { Raffle } from "../typechain";
-const logger = require("pino")();
+import { Raffle } from "../../typechain";
+// const logger = require("pino")();
 
 // run script for deploy
 export async function deployRaffle(
@@ -15,7 +15,7 @@ export async function deployRaffle(
 ): Promise<any> {
     let contract: Raffle;
     try {
-        logger.info(`Deploying the contract...`);
+        // logger.info(`Deploying the contract...`);
         const RaffleContract = await ethers.getContractFactory("Raffle");
 
         contract = await RaffleContract.deploy(
@@ -28,10 +28,10 @@ export async function deployRaffle(
         );
 
         await contract.deployed();
-        logger.info(`Strategy contract deployed to: ${contract.address}`);
+        // logger.info(`Strategy contract deployed to: ${contract.address}`);
         return contract;
     } catch (err) {
-        logger.error(err);
+        // logger.error(err);
         process.exitCode = 1;
     }
 }

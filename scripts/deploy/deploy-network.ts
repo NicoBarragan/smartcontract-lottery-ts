@@ -2,7 +2,7 @@ import { ethers, network } from "hardhat";
 import "@nomiclabs/hardhat-ethers";
 import { deployRaffle } from "./deploy-raffle";
 import { BigNumber } from "ethers";
-import { Raffle } from "../typechain";
+import { Raffle } from "../../typechain";
 import { verify } from "../utils/verify";
 const logger = require("pino")();
 

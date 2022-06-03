@@ -3,8 +3,8 @@ import "@nomiclabs/hardhat-ethers";
 import { deployMock } from "./deploy-mocks";
 import { deployRaffle } from "./deploy-raffle";
 import { BigNumber } from "ethers";
-import { Raffle, VRFCoordinatorV2Mock } from "../typechain";
-const logger = require("pino")();
+import { Raffle, VRFCoordinatorV2Mock } from "../../typechain";
+// const logger = require("pino")();
 
 const VRF_SUB_FUND_AMOUNT = ethers.utils.parseEther("2");
 
@@ -19,7 +19,7 @@ const localDeploy = async (): Promise<{
 }> => {
     let subscriptionId;
 
-    logger.info(`The network name is ${network.name}`);
+    // logger.info(`The network name is ${network.name}`);
 
     const keyHash =
         "0xd89b2bf150e3b9e13446986e571fb9cab24b13cea0a43ea20a6049a85cc807cc";
@@ -32,14 +32,14 @@ const localDeploy = async (): Promise<{
         subscriptionId = events[0].args.subId;
     }
 
-    logger.info("Funding subscription...");
+    // logger.info("Funding subscription...");
     await vrfCoordinatorV2contract.fundSubscription(
         subscriptionId,
         VRF_SUB_FUND_AMOUNT
     );
-    logger.info("Subscription Founded");
+    // logger.info("Subscription Founded");
 
-    logger.info(`Deploying the Raffle contract on local network...`);
+    // logger.info(`Deploying the Raffle contract on local network...`);
     const raffleContract = (await deployRaffle(
         ENTRANCE_FEE,
         vrfCoordinatorV2Address,
@@ -51,9 +51,9 @@ const localDeploy = async (): Promise<{
 
     await raffleContract.deployed();
 
-    logger.info(
-        `Raffle contract deployed on local network at ${raffleContract.address}`
-    );
+    // logger.info(
+    //     `Raffle contract deployed on local network at ${raffleContract.address}`
+    // );
     return { raffleContract, vrfCoordinatorV2contract };
 };
 

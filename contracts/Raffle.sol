@@ -70,7 +70,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
 
     event RaffleEnter(address indexed player);
     event RequestedRaffleWinner(uint256 indexed requestId);
-    event winnerPicked(address indexed winner);
+    event WinnerPicked(address indexed winner);
 
     function enterRaffle() public payable {
         // require(msg.value > _entranceFee, "Not enough ETH!"); --> Saving the revert msg in the require uses more gas than an error, because of that instead of storing a string we'll store an error code for our SC.
@@ -159,12 +159,12 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         if (!success) {
             revert Raffle__TransferFailed();
         }
-        emit winnerPicked(recentWinner);
+        emit WinnerPicked(recentWinner);
     }
 
     /* View / Pure functions */
 
-    function getEntranceFee() private view returns (uint256) {
+    function getEntranceFee() public view returns (uint256) {
         return _entranceFee;
     }
 
@@ -172,7 +172,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         return _players[_index];
     }
 
-    function getRecentWinner() private view returns (address) {
+    function getRecentWinner() public view returns (address) {
         return _recentWinner;
     }
 

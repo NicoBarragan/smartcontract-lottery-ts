@@ -3,14 +3,14 @@ import "@nomiclabs/hardhat-ethers";
 import { deployRaffle } from "./deploy-raffle";
 import { BigNumber } from "ethers";
 import { Raffle } from "../../typechain";
-import { verify } from "../utils/verify";
+import { verify } from "../../utils/verify";
 const logger = require("pino")();
 
-const { VRF_COORDINATOR_V2, KEY_HASH, SUBSCRIPTION_ID } = process.env;
+const { VRF_COORDINATOR_V2, KEY_HASH, SUBSCRIPTION_ID, ENTRANCE_FEE } =
+    process.env;
 
 // run script for deploy
 export async function networkDeploy() {
-    const entranceFee = ethers.utils.parseEther("0.001");
     const callbackGasLimit = BigNumber.from("500000");
     const keeperInterval = BigNumber.from(30); // seconds
 
@@ -18,24 +18,24 @@ export async function networkDeploy() {
 
     logger.info(`The network name is ${network.name}`);
     if (network.name === ("hardhat" || "localhost" || "network")) {
-        logger.warn("This script is for tstnets or mainnet only");
+        logger.warn("This script is for testnets or mainnet only");
         return;
     }
 
     try {
         logger.info(`Deploying the Raffle contract on the chain...`);
         raffleContract = await deployRaffle(
-            entranceFee,
+            BigNumber.from(`${ENTRANCE_FEE}`),
             `${VRF_COORDINATOR_V2}`,
             `${KEY_HASH}`,
             BigNumber.from(`${SUBSCRIPTION_ID}`),
             callbackGasLimit,
             keeperInterval
         );
-        logger.info(`Strategy contract deployed to: ${raffleContract.address}`);
+        logger.info(`Raffle contract deployed to: ${raffleContract.address}`);
 
         const args = [
-            entranceFee,
+            BigNumber.from(`${ENTRANCE_FEE}`),
             `${VRF_COORDINATOR_V2}`,
             `${KEY_HASH}`,
             BigNumber.from(`${SUBSCRIPTION_ID}`),

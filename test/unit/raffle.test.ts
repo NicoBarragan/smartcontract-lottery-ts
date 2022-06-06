@@ -11,7 +11,7 @@ import {
 if (network.name !== ("hardhat" || "localhost")) {
     describe.skip;
 } else {
-    describe("Raffle Unit Tests", async () => {
+    describe("Raffle Unit Tests", () => {
         // define variables
         let ownerWallet: Wallet;
         let vrfCoordinatorV2Mock: VRFCoordinatorV2Mock;

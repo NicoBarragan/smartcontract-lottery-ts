@@ -1,5 +1,6 @@
 import "@nomiclabs/hardhat-ethers";
 import { BigNumber } from "ethers";
+// eslint-disable-next-line node/no-unpublished-import
 import { run } from "hardhat";
 
 // we can't have these functions in our `helper-hardhat-config`
@@ -9,8 +10,8 @@ export async function verify(
     contractAddress: string,
     args: (string | BigNumber)[]
 ) {
-    console.log("Verifying contract...");
     try {
+        console.log("Verifying contract...");
         await run("verify:verify", {
             address: contractAddress,
             constructorArguments: args,

@@ -17,7 +17,6 @@ if (!networkName) {
     throw new Error("invalid network name");
 }
 
-logger.info("network", networkName);
 dotenv.config({
     path: `.env.${networkName}`,
 });

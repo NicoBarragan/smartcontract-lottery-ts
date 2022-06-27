@@ -362,7 +362,6 @@ if (network.name !== ("hardhat" || "localhost")) {
                                     raffle.address
                                 );
                             })();
-                            // TODO(nb): see if is possible to implement this with 'raffle.on("WinnerPicked")'
                         });
                     });
                 });
